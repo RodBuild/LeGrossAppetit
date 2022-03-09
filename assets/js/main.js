@@ -1,3 +1,4 @@
+// CODE FOR FIRST CAROUSEL
 var slideIndex, slides, dots, captionText
 
 // QUERYSELECTORALL()
@@ -130,3 +131,5 @@ function playPauseSlides() {
 
 }
 playPauseSlides();
+
+// Other sutff

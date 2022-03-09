@@ -14,7 +14,7 @@
 </ul>
 
 <h2>Team Members:</h2>
-<ul style="list-style-type: none;">
+<ul style="list-style-type: circle;">
     <li>Rodrigo Rodriguez</li>
     <li>Chika Wonodi</li>
     <li>Sadiq Abubakar</li>
