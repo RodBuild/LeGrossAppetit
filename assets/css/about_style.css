@@ -286,6 +286,7 @@ button:hover{
 }
 .footer-row {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   font-family: 'Poppins', sans-serif;
 }
@@ -331,9 +332,12 @@ button:hover{
   color: var(--primary-color);
   padding-left: 8px;
 }
-@media(max-width: 1000px){
+@media(max-width: 1000px) {
+  .footer {
+      padding: 35px 0;
+  }
   .footer-col {
-    width: 100%;
-    margin-bottom: 30px;
+      width: 100%;
+      margin-bottom: 30px;
   }
 }
