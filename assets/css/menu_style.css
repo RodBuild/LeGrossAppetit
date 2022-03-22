@@ -129,6 +129,63 @@ button:hover{
   }
 }
 
+/* Moving ticker wrapper */
+  
+.hmove{
+  display: flex;
+  justify-content: flex-start;
+  
+  
+}
+
+/*Have items horizonatally align */
+
+.tick{
+  flex-shrink: 0;
+
+  box-sizing: border-box;
+  padding: 10px;
+  text-align: center;
+  cursor:pointer;
+}
+
+.tick:hover{
+  -ms-transform: scaleY(1.5); /* IE 9 */
+    transform: scaleY(2);
+    
+}
+
+/*Animation moving items left to right*/ 
+
+/* 4 ITEMS -400%, CHANGE THIS IF YOU ADD/REMOVE ITEMS */
+@keyframes tickerh {
+  0% { transform: translate3d(100%, 0, 0); }
+  100% { transform: translate3d(-400%, 0, 0); }
+}
+.hmove { animation: tickerh linear 35s infinite; }
+
+
+
+.button:hover{
+    background-color:red;
+    -ms-transform: scaleY(1.5); /* IE 9 */
+    transform: scaleY(2);
+    
+
+}
+
+.button {
+  padding: 1em;
+  width: 15em;
+  background-color:black;
+  color:white;
+  cursor:pointer;
+  
+
+}
+
+
+
 
 .button{
     display:none;
