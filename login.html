@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le gros appétit - Personnel Login</title>
+    <link rel="shortcut icon" type="image/x-icon" href="assets/pictures/favicon1.png" />
+    <link rel="stylesheet" href="assets/css/login_style.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <script src="assets/js/Admin.js" type="module"></script> -->
+</head>
+
+<body>
+    <script type="module">
+        import { loadHeaderFooter } from "./assets/js/utils.js";
+        import Admin from "./assets/js/Admin.js";
+        loadHeaderFooter();
+        const myAdmin = new Admin('.main-content')
+        myAdmin.showLogin();
+
+        
+    </script>
+    <header id="main-header"></header>
+
+    <!-- <form class="login-form" id="login-form">
+        <div class="form-title">
+            Personnel Login
+        </div>
+        <div class="form-input">
+            <label for="username">Username</label>
+            <input type="text" id="username">
+        </div>
+        <div class="form-input">
+            <label for="password">Password</label>
+            <input type="password" id="password">
+        </div>
+        <div class="form-input">
+            <button class="form-submit" id="form-submit">Validate</button>
+        </div>
+    </form> -->
+    <main class="main-content"></main>
+
+    <footer id="main-footer"></footer> 
+
+</body>
+
+</html>
+
+
+
+<!-- <body>
+  <script type="module">
+    // Normally we have been creating a separate js file to hold this. I put it here to show that you can...the next question is should you?
+    // Advantages to putting it here: one less file to request and download.
+    // Disadvantages: it breaks the pattern we have established with our other pages, and the separation of concerns...
+    import { loadHeaderFooter } from "../js/utils.js";
+    import Admin from "../js/Admin.js";
+    loadHeaderFooter();
+    // We are passin the element <main>
+    const myAdmin = new Admin("main");
+    myAdmin.showLogin();
+  </script>
+  <header class="divider" id="main-header"></header>
+  <main class="divider"></main>
+  <footer id="main-footer"></footer>
+
+</body> -->
+
+</html>

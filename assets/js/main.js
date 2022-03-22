@@ -1,3 +1,7 @@
+import { loadHeaderFooter } from "./utils.js";
+
+loadHeaderFooter();
+
 // CODE FOR FIRST CAROUSEL
 var slideIndex, slides, dots, captionText
 
