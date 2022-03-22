@@ -693,32 +693,4 @@ span.showcase-dot.active {
   color: var(--primary-color);
   padding-left: 8px;
 }
-<<<<<<< HEAD
-@media(max-width: 1000px){
-  .footer-col {
-    width: 100%;
-    margin-bottom: 30px;
-    
-  }
-  
-  
-}
-/*@media(max-width: 990px) {
-  .footer-col img{
-    
-    
 
-  }
-}*/
-
-=======
-@media(max-width: 1000px) {
-  .footer {
-      padding: 35px 0;
-  }
-  .footer-col {
-      width: 100%;
-      margin-bottom: 30px;
-  }
-}
->>>>>>> 67fbed11f0bc21476eb7993042ebdd4ffc0cb5ee
