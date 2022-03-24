@@ -51,6 +51,13 @@ button {
 button:hover {
     background-color: rgba(184, 42, 42, 1);
 }
+.empty {
+    margin: auto;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 0px;
+    font-family: var(--font-comforta);
+}
 
 /************ HEADER ***************/
 .header {

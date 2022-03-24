@@ -21,3 +21,45 @@ export async function loadHeaderFooter() {
     renderTemplate(footer, footerElement);
 
 }
+// General HTML to display an error
+export function displayGeneralError() {
+    return `
+    <div class="error">
+        <h1>There was an error processing your request!</h1>
+    </div> `
+}
+
+// Get data from the existing API
+export async function getDataFromAPI(source, url) {
+    try {
+        let server1 = await fetch(source + url)
+        let data = await server1.json()
+        // navigate through [0],[1],etc
+        if (url == 'staff') {
+            // console.log(data.staff)
+            return data.staff;
+        }
+        else if (url == 'menu'){
+            // console.log(data.menu)
+            return data.menu;
+        }
+    } catch (error) {
+        console.log(error)
+        return 'bad'
+    }
+}
+
+// CHIKA
+// Local Storage
+// retrieve data from localStorage API
+export function getLocalStorage(key) {
+    return JSON.parse(localStorage.getItem(key));
+}
+// create/update localStorage object
+export function setLocalStorage(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
+}
+// clear localStorage
+export function clearLocalStorage() {
+    localStorage.clear();
+}

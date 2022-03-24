@@ -1,19 +1,23 @@
 const server = 'https://le-gros-appetit.herokuapp.com/feed/';
+import { getDataFromAPI } from "./utils.js";
 
-async function getAPI(url) {
-    try {
-        let server1 = await fetch(server + url)
-        let data = await server1.json()
-        // navigate through [0],[1],etc
-        console.log(data.staff)
-        // console.log(data.staff)
-        return 'ok'
-    } catch (error) {
-        console.log(error)
-        return 'bad'
-    }
-}
-// getAPI('menu')
+getDataFromAPI(server, 'staff')
+
+
+// async function getAPI(url) {
+//     try {
+//         let server1 = await fetch(server + url)
+//         let data = await server1.json()
+//         // navigate through [0],[1],etc
+//         console.log(data.staff)
+//         // console.log(data.staff)
+//         return 'ok'
+//     } catch (error) {
+//         console.log(error)
+//         return 'bad'
+//     }
+// }
+// // getAPI('menu')
 
 export default class Admin {
     constructor(outputElement) {
