@@ -187,6 +187,9 @@ h1 {
 .product-name, .product-price, .product-offer {
     margin-bottom: 20px;
 }
+.product-price {
+    letter-spacing: 1.5px;
+}
 .product-add-remove i {
     width: 10%;
     margin: 5px 5px;

@@ -22,31 +22,59 @@ export async function loadHeaderFooter() {
 
 }
 // General HTML to display an error
-export function displayGeneralError() {
+export function displayGeneralError(error) {
     return `
     <div class="error">
         <h1>There was an error processing your request!</h1>
+        <h2>${error}</h2>
     </div> `
 }
 
 // Get data from the existing API
-export async function getDataFromAPI(source, url) {
-    try {
-        let server1 = await fetch(source + url)
-        let data = await server1.json()
-        // navigate through [0],[1],etc
-        if (url == 'staff') {
-            // console.log(data.staff)
-            return data.staff;
+export async function getDataFromAPI(source,outputElement,type) {
+    await fetch(source, {
+        method: 'GET',
+        mode: 'cors',
+        headers: {},
+    })
+    // check for proper response
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error(response.error);
         }
-        else if (url == 'menu'){
-            // console.log(data.menu)
-            return data.menu;
+        return response.json();
+    })
+    // now visualize data of JSON from API
+    .then (data => {
+        // clear "loading screen..."
+        outputElement.innerHTML = ``;
+        // loop through response data and add it to the html
+        for (let i = 0; i < data.length; i++) {
+            if (type === 'menu')
+                outputElement.innerHTML += renderMenu(data[i]);
+            else if (type === 'staff')
+                outputElement.innerHTML += renderStaff(data[i]);
         }
-    } catch (error) {
-        console.log(error)
-        return 'bad'
-    }
+    })
+    .catch(function (err) {
+        outputElement.innerHTML = displayGeneralError(err);
+    })
+}
+
+// renderHTML
+function renderMenu(item) {
+    return `
+    <div class="menu-item">
+        <img src="data:image/jpeg;base64,${item.image}">
+        <h3>${item.item}</h3>
+        <p>${item.description}</p>
+        <p>${item.price}</p>
+        <button>Add to Cart</button>
+    </div>
+    `
+}
+function renderStaff() {
+
 }
 
 // CHIKA

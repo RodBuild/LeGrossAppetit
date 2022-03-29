@@ -39,8 +39,8 @@ async function addListeners(cartContents) {
                 qua.innerHTML = parseInt(qua.textContent) + 1;
                 // now update the localStorage
                 cartContents.forEach(cc => {
-                    if (cc[0] == name)
-                        cc[2] += 1;
+                    if (cc[1] == name)
+                        cc[3] += 1;
                 })
                 setLocalStorage('so-cart', cartContents);
                 // update price HTML...
@@ -52,10 +52,10 @@ async function addListeners(cartContents) {
                 let p1 = 0;
                 cartContents.forEach(cc => {
                     console.log(cc[2]);
-                    q1 += cc[2];
-                    p1 += (cc[1] * cc[2])
+                    q1 += cc[3];
+                    p1 += (cc[2] * cc[3])
                 });
-                price.innerHTML = `$${p1}`;
+                price.innerHTML = `$${Math.ceil(p1)-0.01}`;
                 quantity.innerHTML = q1;
             })
         })
@@ -82,8 +82,8 @@ async function addListeners(cartContents) {
                 } else {
                     qua.innerHTML = newQuant;
                     cartContents.forEach(cc => {
-                        if (cc[0] == name)
-                            cc[2] -= 1;
+                        if (cc[1] == name)
+                            cc[3] -= 1;
                     })
                 }
                 setLocalStorage('so-cart', cartContents);
@@ -96,10 +96,10 @@ async function addListeners(cartContents) {
                 let p1 = 0;
                 cartContents.forEach(cc => {
                     // console.log(cc[2]);
-                    q1 += cc[2];
-                    p1 += (cc[1] * cc[2])
+                    q1 += cc[3];
+                    p1 += (cc[2] * cc[3])
                 });
-                price.innerHTML = `$${p1}`;
+                price.innerHTML = `$${Math.ceil(p1)-0.01}`;
                 quantity.innerHTML = q1;
                 // check if localStorage is empty
                 const empty = getLocalStorage('so-cart');
@@ -119,7 +119,7 @@ async function addListeners(cartContents) {
                 let name = t.parentElement.parentElement.querySelector('.product-name').textContent;
                 let index = 0;
                 for (; index < cartContents.length; index++) {
-                    if (name == cartContents[index][0])
+                    if (name == cartContents[index][1])
                         break;
                 }
                 // delete array item
@@ -138,10 +138,10 @@ async function addListeners(cartContents) {
                 let p1 = 0;
                 cartContents.forEach(cc => {
                     console.log(cc[2]);
-                    q1 += cc[2];
-                    p1 += (cc[1] * cc[2])
+                    q1 += cc[3];
+                    p1 += (cc[2] * cc[3])
                 });
-                price.innerHTML = `$${p1}`;
+                price.innerHTML = `$${Math.ceil(p1)-0.01}`;
                 quantity.innerHTML = q1;
                 // check if localStorage is empty
                 const empty = getLocalStorage('so-cart');
@@ -175,11 +175,11 @@ function cartHTML(e) {
     // We also force the same price....
     return `
     <div class="product">
-        <img src="assets/pictures/food/menu/egg1.jpg">
+        <img src="${e[0]}">
         <div class="product-info">
-            <h3 class="product-name">${e[0]}</h3>
-            <h4 class="product-price">$${e[1]}</h4>
-            <p class="product-quantity">Quantity: <span class="quantity-number">${e[2]}</span></p>
+            <h3 class="product-name">${e[1]}</h3>
+            <h4 class="product-price">$${e[2]}</h4>
+            <p class="product-quantity">Quantity: <span class="quantity-number">${e[3]}</span></p>
             <p class="product-add-remove">
                 <i class="fa fa-plus" aria-hidden="true"></i>
                 <i class="fa fa-minus" aria-hidden="true"></i>
@@ -197,8 +197,8 @@ function priceHTML(cc) {
     let price = 0;
     let quantity = 0;
     cc.forEach(c => {
-        quantity += c[2];
-        price += (c[1] * c[2])
+        quantity += c[3];
+        price += (c[2] * c[3])
     });
     return `
     <p>
