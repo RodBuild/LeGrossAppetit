@@ -6,27 +6,12 @@ import {
 
 loadHeaderFooter();
 
-// // LISTEN TO ADD/REDUCE CART ITEMS
-// const addElement = document.querySelectorAll('.fa-plus')
-// console.log(addElement)
-// for (let i=0; i< addElement.length; i++) {
-//     addElement[i].addEventListener('click', function() {
-//         console.log('Clicked ADD, #',i)
-//         // When item found, we look for the current quantity and add it...
-//         // LATER REPLACE WITH LocalStorage
-//         var currentQuant = document.querySelectorAll('.quantity-number')
-//         var q = parseInt(currentQuant[i].textContent,10) + 1;
-//         console.log(q)
-//         currentQuant[i].innerHTML = q
-//     })
-// }
-
 async function addListeners(cartContents) {
     let contents = await document.querySelectorAll('.product');
     contents.forEach(c => {
-        let plus =  c.querySelectorAll('.fa-plus');
-        let minus =  c.querySelectorAll('.fa-minus');
-        let trash =  c.querySelectorAll('.product-delete');
+        let plus = c.querySelectorAll('.fa-plus');
+        let minus = c.querySelectorAll('.fa-minus');
+        let trash = c.querySelectorAll('.product-delete');
 
         // plus first...
         plus.forEach(p => {
@@ -51,7 +36,7 @@ async function addListeners(cartContents) {
                 let q1 = 0;
                 let p1 = 0;
                 cartContents.forEach(cc => {
-                    console.log(cc[2]);
+                    // console.log(cc[2]);
                     q1 += cc[3];
                     p1 += (cc[2] * cc[3])
                 });
@@ -70,7 +55,7 @@ async function addListeners(cartContents) {
                 if (newQuant <= 0) {
                     let index = 0;
                     for (let i = 0; i < cartContents.length; i++) {
-                        if (cartContents[i][0] == name) {
+                        if (cartContents[i][1] == name) {
                             break;
                         }
                         index++;
@@ -106,6 +91,7 @@ async function addListeners(cartContents) {
                 if (empty.length == 0) {
                     document.querySelector('.cart-total').remove();
                     document.querySelector('.products').remove();
+                    document.querySelector('.information').remove();
                     document.querySelector('.empty').innerHTML = `<h2>Your Cart Is Empty! 😔</h2>`;
                 }
             })
@@ -148,6 +134,7 @@ async function addListeners(cartContents) {
                 if (empty.length == 0) {
                     document.querySelector('.cart-total').remove();
                     document.querySelector('.products').remove();
+                    document.querySelector('.information').remove();
                     document.querySelector('.empty').innerHTML = `<h2>Your Cart Is Empty! 😔</h2>`;
                 }
             })
@@ -168,6 +155,11 @@ async function renderCartItems(productOutput) {
 function renderPrice(priceOutput) {
     const cartContents = getLocalStorage('so-cart');
     priceOutput.innerHTML = priceHTML(cartContents);
+    // Add event listener to checkout button
+    document.querySelector('.checkoutBtn').addEventListener('click', () => {
+        confirmOrder();
+    })
+
 }
 
 function cartHTML(e) {
@@ -200,6 +192,7 @@ function priceHTML(cc) {
         quantity += c[3];
         price += (c[2] * c[3])
     });
+    price = Math.ceil(price) - 0.01
     return `
     <p>
         <span>Total Price</span>
@@ -213,7 +206,7 @@ function priceHTML(cc) {
         <span>Taxes and Fees</span>
         <span>$15</span>
     </p>
-    <a href="#">Proceed to Checkout</a>
+    <a class="checkoutBtn" href="#">Proceed to Checkout</a>
     `
 }
 
@@ -222,6 +215,7 @@ function priceHTML(cc) {
 
 const products = document.querySelector('.products');
 const price = document.querySelector('.cart-total');
+const information = document.querySelector('.information');
 renderCartItems(products);
 // var x = JSON.parse(localStorage.getItem('so-cart'));
 // console.log(x[0]);
@@ -231,5 +225,60 @@ if (getLocalStorage('so-cart').length != 0) {
 } else {
     price.remove();
     products.remove();
+    information.remove();
     document.querySelector('.empty').innerHTML = `<h2>Your Cart Is Empty! 😔</h2>`
+}
+
+
+// POST API, TO ACCEPT ORDERS...
+// let mockOrder = [
+//     {'Order':'131','Card': '1234 1234 1234','Items':[['items','2'],['item2','3'],['item3','4']]},
+//     {'Order':'132','Card': '1234 1234 1234','Items':['item4','item5','item6']},
+// ]
+// const mockAPI = 'https://run.mocky.io/v3/f903a4f3-9b8c-4576-8354-3204c950aecb'
+const ordersAPI = 'https://le-gros-appetit.herokuapp.com/orders';
+async function confirmOrder() {
+    const cartContents = getLocalStorage('so-cart');
+    // today's date - unused
+    const today = new Date().toISOString().slice(0, 10)
+    // list of items in localStorage
+    let listItems = []
+    let quantity = 0;
+    cartContents.forEach(item => {
+        // listItems.push([item[1],item[2],item[3]]);
+        quantity += item[3];
+        listItems.push(item[1]);
+    })
+    // querySelectors for card, and address
+    const name = document.getElementById('name').value;
+    const card = document.getElementById('card').value;
+    const address = document.getElementById('address').value;
+    if (name == '' || address == '' || card == '') {
+        console.log('Error should be displayed!')
+    } else {
+        // let mockOrder = {'Items': listItems, 'Card:':card,'Address':address,'Date':today}
+        let mockOrder = {
+            'name': name,
+            'items': listItems,
+            'quantity': quantity,
+            'address': address
+        }
+        console.log(mockOrder)
+        await fetch(ordersAPI, {
+                method: 'POST',
+                mode: 'cors',
+                // headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(mockOrder),
+            })
+            .then(response => {
+                if (!response.ok)
+                    console.error('Response was bad: ' + response.ok)
+                // throw new Error(response.error);
+                else
+                    return response.json()
+            })
+            .then(data => {
+                console.log(data)
+            })
+    }
 }

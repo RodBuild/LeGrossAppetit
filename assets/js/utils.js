@@ -31,10 +31,10 @@ export function displayGeneralError(error) {
 }
 
 // Get data from the existing API
-export async function getDataFromAPI(source,outputElement,type) {
+// extra, is for anything specific that we want from the API
+export async function getDataFromAPI(source,outputElement,type,extra) {
     await fetch(source, {
         method: 'GET',
-        mode: 'cors',
         headers: {},
     })
     // check for proper response
@@ -52,12 +52,32 @@ export async function getDataFromAPI(source,outputElement,type) {
         for (let i = 0; i < data.length; i++) {
             if (type === 'menu')
                 outputElement.innerHTML += renderMenu(data[i]);
-            else if (type === 'staff')
-                outputElement.innerHTML += renderStaff(data[i]);
+            else if (type === 'staff') {
+                if (extra.username == data[i].username && extra.password == data[i].password) {
+                    console.log(data[i].name);
+                   outputElement.innerHTML += renderStaff(data[i]);
+                    break;
+                }
+                // outputElement.innerHTML += renderStaff(data[i]);
+            }
         }
     })
     .catch(function (err) {
         outputElement.innerHTML = displayGeneralError(err);
+    })
+}
+
+// to post...
+export async function postDataToAPI(source, outputElement, type, extra) {
+    await fetch(source, {
+        method: 'POST',
+        headers: {extra},
+    })
+    .then((response) => {
+        return response.json();
+    })
+    .then(data => {
+        console.log(data)
     })
 }
 
@@ -73,8 +93,35 @@ function renderMenu(item) {
     </div>
     `
 }
-function renderStaff() {
+function renderStaff(item) {
+    // here we render the staff content from the getAPI
+    // salary, hours, picture, etc...
+    // console.log(item.);
+    return `
+    <form class="login-form" id="login-form">
+        <div class="form-title">
+            Personnel Information
+        </div>
+        <div class="form-input">
+            <label for="username">New Username</label>
+            <input type="text" id="username">
+        </div>
+        <div class="form-input">
+            <label for="password">New Password</label>
+            <input type="password" id="password">
+        </div>
+        <div class="form-input">
+            <p class="role"><b>Role in restaurant:</b> ${item.position}</p>
+            <p class="hours"><b>Hours per week:</b> 40</p>
+            <p class="payment"><b>Payment per hour:</b> 20</p>
+            <p class="description"><b>Description:</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia maxime enim
+                animi hic ullam! Delectus numquam nisi sequi earum vero odit libero, laudantium, porro deserunt facere
+                ullam sapiente? Officia, placeat?</p>
 
+        </div>
+        <button type="submit" class="form-submit" id="form-update">Update</button>
+    </form>
+    `
 }
 
 // CHIKA

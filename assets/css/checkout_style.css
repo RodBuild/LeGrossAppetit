@@ -238,6 +238,59 @@ h1 {
 .fa {
     margin-right: 10px;
 }
+
+/************ CART FORM ***************/
+.information {
+    height: 240px;
+    flex: 0.25;
+    border: solid;
+    padding: 20px;
+    margin-left: 20px;
+    /* margin: 50px 0; */
+    border: 1px solid silver;
+    border-radius: 5px;
+}
+.entry {
+    margin: 10px 0;
+}
+.entry i {
+    position: absolute;
+    padding: 10px;
+    text-align: center;
+}
+.entry input {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    font-style: var(--font-comforta);
+}
+@media (max-width: 799px) {
+    .information {
+        margin: 0px;
+        margin-bottom: 20px;
+    }
+}
+@media only screen and (min-device-width: 800px) and (max-device-width: 1100px) {
+    .information {
+        max-width: 100%;
+        margin: 30px 30%;
+        /* mar */
+        /* margin-left: 20px; */
+        /* margin: 20px 0; */
+    }
+}
+@media (min-width: 1101px) {
+    .information {
+        max-width: 95%;
+        margin: 0px;
+        margin-left: 20px;
+    }
+    .entry {
+        /* margin: 1000px; */
+    }
+}
+
+/************ CART TOTAL ***************/
 .cart-total {
     flex: 0.25;
     margin-left: 20px;
@@ -318,6 +371,7 @@ h1 {
 @media (max-width: 1600px) {
     .cart-content {
         max-width: 95%;
+        /* margin-left: 1000px; */
     }
 }
 
