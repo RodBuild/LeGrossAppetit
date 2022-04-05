@@ -451,6 +451,17 @@ span.showcase-dot.active {
     visibility: hidden;
   }
 }
+@media (min-width: 1300px) {
+  .showcase {
+    height: 65vh;
+    transition: all 0.3s ease 0s;
+  }
+  .showcasecaptionHolder .captionText {
+    font-size: 2em;
+    /* height: 50px; */
+    /* padding-top: 1px; */
+  }
+}
 /* @media (max-width: 1200px) {
   .showcase {
     height: 750px;
