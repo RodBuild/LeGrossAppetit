@@ -267,7 +267,7 @@ async function confirmOrder() {
         await fetch(ordersAPI, {
                 method: 'POST',
                 mode: 'cors',
-                // headers: {'Content-Type': 'application/json'},
+                headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(mockOrder),
             })
             .then(response => {
